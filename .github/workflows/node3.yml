@@ -1,0 +1,21 @@
+
+name: node3
+on:
+  schedule:
+    - cron: "*/2 * * * *"
+  workflow_dispatch:
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install
+      - run: node bot.js
+        env:
+          NODE_NAME: "node3"
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
